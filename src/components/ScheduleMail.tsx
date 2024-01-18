@@ -1,9 +1,18 @@
 import { useState } from "react";
 import SchedularForm from "./SchedularForm";
+import DateTimePicker from "react-datetime-picker";
+
+ type ValuePiece = Date | null;
+
+ type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 const ScheduleMail = () => {
 
   const [open, setOpen] = useState<boolean>(false);
+  const [message, setMessage] = useState("Message");
+
+  const [value, onChange] = useState<Value>(new Date());
+ 
   return (
     <>
       <div
@@ -47,11 +56,7 @@ const ScheduleMail = () => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  <input
-                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="inline-password"
-                    type="password"
-                  />
+                  <DateTimePicker onChange={onChange} value={value} />
                 </div>
               </div>
 
@@ -65,12 +70,14 @@ const ScheduleMail = () => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  {/* Dropdown */}
-                  <input
-                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="inline-password"
-                    type="password"
-                  />
+                  <select
+                    name="selectedFruit"
+                    className="w-full rounded-lg bg-gray-200 py-2 px-4"
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                  </select>
                 </div>
               </div>
 
@@ -148,10 +155,15 @@ const ScheduleMail = () => {
                   </label>
                 </div>
                 <div className="md:w-2/3">
+                  {/* <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    rows={4}
+                    cols={40}
+                  /> */}
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="inline-password"
-                    type="password"
+                    type="text"
                   />
                 </div>
               </div>
