@@ -1,6 +1,11 @@
-import { useState } from "react";
+import { useState, Component } from "react";
 import SchedularForm from "./SchedularForm";
 import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
  type ValuePiece = Date | null;
 
@@ -55,7 +60,7 @@ const ScheduleMail = () => {
                     Start date and time
                   </label>
                 </div>
-                <div className="md:w-2/3">
+                <div className="md:w-2/3 bg-slate-400 rounded-lg">
                   <DateTimePicker onChange={onChange} value={value} />
                 </div>
               </div>
@@ -166,6 +171,26 @@ const ScheduleMail = () => {
                     type="text"
                   />
                 </div>
+              </div>
+
+              <div className="md:flex md:items-center">
+                <CKEditor
+                  editor={ClassicEditor}
+                  data="<p>Hello from CKEditor&nbsp;5!</p>"
+                  onReady={(editor) => {
+                    // You can store the "editor" and use when it is needed.
+                    console.log("Editor is ready to use!", editor);
+                  }}
+                  onChange={(event) => {
+                    console.log(event);
+                  }}
+                  onBlur={(event, editor) => {
+                    console.log("Blur.", editor);
+                  }}
+                  onFocus={(event, editor) => {
+                    console.log("Focus.", editor);
+                  }}
+                />
               </div>
 
               <div className="md:flex md:items-center">
