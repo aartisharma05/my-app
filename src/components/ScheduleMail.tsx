@@ -1,11 +1,13 @@
 import { useState, Component } from "react";
 import SchedularForm from "./SchedularForm";
 import DateTimePicker from "react-datetime-picker";
+
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
+import TimezonePicker from "./TimeZone";
 
  type ValuePiece = Date | null;
 
@@ -32,7 +34,7 @@ const ScheduleMail = () => {
             Schedule Mail
           </button>
           <SchedularForm open={open} onClose={() => setOpen(false)}>
-            <form className="w-full max-w-lg">
+            <form className="">
               <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/3">
                   <label
@@ -97,11 +99,7 @@ const ScheduleMail = () => {
                 </div>
                 <div className="md:w-2/3">
                   {/* dropdown */}
-                  <input
-                    className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="inline-password"
-                    type="password"
-                  />
+                 <TimezonePicker/>
                 </div>
               </div>
 
@@ -173,7 +171,7 @@ const ScheduleMail = () => {
                 </div>
               </div>
 
-              <div className="md:flex md:items-center">
+              <div className="md:flex md:items-center border p-4 ">
                 <CKEditor
                   editor={ClassicEditor}
                   data="<p>Hello from CKEditor&nbsp;5!</p>"
