@@ -1,4 +1,4 @@
-import { useState, Component } from "react";
+import { useState } from "react";
 import SchedularForm from "./SchedularForm";
 import DateTimePicker from "react-datetime-picker";
 
@@ -7,7 +7,7 @@ import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import TimezonePicker from "./TimeZone";
+
 
  type ValuePiece = Date | null;
 
@@ -16,10 +16,33 @@ import TimezonePicker from "./TimeZone";
 const ScheduleMail = () => {
 
   const [open, setOpen] = useState<boolean>(false);
-  const [message, setMessage] = useState("Message");
+
 
   const [value, onChange] = useState<Value>(new Date());
- 
+
+  const [formData, setFormData] = useState({
+    schedularname: "",
+    date: "",
+    frequency: "",
+    frommail: "",
+    tomails: [],
+    subject:"",
+  });
+
+  const handleSubmit=(e: { preventDefault: () => void; })=>{
+    e.preventDefault();
+    console.log(formData);
+    
+
+  }
+
+  const handleInputChange = (e: { target: any; }) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
   return (
     <>
       <div
@@ -34,12 +57,12 @@ const ScheduleMail = () => {
             Schedule Mail
           </button>
           <SchedularForm open={open} onClose={() => setOpen(false)}>
-            <form className="">
+            <form className="" onSubmit={handleSubmit}>
               <div className="md:flex md:items-center mb-6">
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-full-name"
+                    htmlFor="schedularname"
                   >
                     Schedular Name
                   </label>
@@ -47,9 +70,11 @@ const ScheduleMail = () => {
                 <div className="md:w-2/3">
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="inline-full-name"
+                    name="schedularname"
+                    id="schedularname"
                     type="text"
-                    value="Jane Doe"
+                    value={formData.schedularname}
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -57,56 +82,29 @@ const ScheduleMail = () => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-password"
+                    htmlFor="date"
                   >
                     Start date and time
                   </label>
                 </div>
                 <div className="md:w-2/3 bg-slate-400 rounded-lg">
-                  <DateTimePicker onChange={onChange} value={value} />
+                  <DateTimePicker
+                    onChange={(value) =>
+                      handleInputChange({ target: { name: "date", value } })
+                    }
+                    value={formData.date}
+                    name="date"
+                    id="date"
+                    
+                  />
                 </div>
               </div>
 
-              <div className="md:flex md:items-center mb-6">
-                <div className="md:w-1/3">
-                  <label
-                    className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-password"
-                  >
-                    Frequency
-                  </label>
-                </div>
-                <div className="md:w-2/3">
-                  <select
-                    name="selectedFruit"
-                    className="w-full rounded-lg bg-gray-200 py-2 px-4"
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                  </select>
-                </div>
-              </div>
-
-              <div className="md:flex md:items-center mb-6">
-                <div className="md:w-1/3">
-                  <label
-                    className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-password"
-                  >
-                    Time Zone
-                  </label>
-                </div>
-                <div className="md:w-2/3">
-                  {/* dropdown */}
-                 <TimezonePicker/>
-                </div>
-              </div>
 
               <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4"
-                  htmlFor="inline-password"
+                 
                 >
                   Message
                 </label>
@@ -116,7 +114,7 @@ const ScheduleMail = () => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-password"
+                    htmlFor="frommail"
                   >
                     From
                   </label>
@@ -124,8 +122,10 @@ const ScheduleMail = () => {
                 <div className="md:w-2/3">
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="inline-password"
-                    type="password"
+                    id="frommail"
+                    name="frommail"
+                    type="email"
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -134,7 +134,7 @@ const ScheduleMail = () => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-password"
+                    htmlFor="tomail"
                   >
                     To
                   </label>
@@ -142,8 +142,10 @@ const ScheduleMail = () => {
                 <div className="md:w-2/3">
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                    id="inline-password"
-                    type="password"
+                    id="tomail"
+                    name="tomail"
+                    type="email"
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
@@ -152,32 +154,29 @@ const ScheduleMail = () => {
                 <div className="md:w-1/3">
                   <label
                     className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-                    htmlFor="inline-password"
+                    htmlFor="subject"
                   >
                     Subject
                   </label>
                 </div>
                 <div className="md:w-2/3">
-                  {/* <textarea
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    rows={4}
-                    cols={40}
-                  /> */}
                   <input
                     className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                     type="text"
+                    id="subject"
+                    name="subject"
+                    onChange={handleInputChange}
                   />
                 </div>
               </div>
 
-              <div className="md:flex md:items-center border p-4 ">
+              <div className="md:flex md:items-center my-2">
                 <CKEditor
                   editor={ClassicEditor}
                   data="<p>Hello from CKEditor&nbsp;5!</p>"
                   onReady={(editor) => {
                     // You can store the "editor" and use when it is needed.
-                    console.log("Editor is ready to use!", editor);
+                    // console.log("Editor is ready to use!", editor);
                   }}
                   onChange={(event) => {
                     console.log(event);
@@ -196,9 +195,9 @@ const ScheduleMail = () => {
                 <div className="md:w-2/3">
                   <button
                     className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
-                    type="button"
+                    type="submit"
                   >
-                    Save
+                    Submit
                   </button>
                   <button
                     className=" ml-1 shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
