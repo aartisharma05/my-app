@@ -5,8 +5,6 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 
 type propTypes = {
   open: boolean;
@@ -27,12 +25,11 @@ const ScheduleMailModalForm: React.FC<propTypes> = ({
 const [isSubmitted, setIsSubmitted] =  useState(false);
 
   const [formData, setFormData] = useState({
-    schedularname: "",
-    date: "",
-    frequency: "",
-    frommail: "",
     tomails: [],
+    date: "",
     subject: "",
+    body: "",
+   
   });
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -69,29 +66,9 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
           <div className="md:w-1/3">
             <label
               className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-              htmlFor="schedularname"
-            >
-              Schedular Name
-            </label>
-          </div>
-          <div className="md:w-2/3">
-            <input
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              name="schedularname"
-              id="schedularname"
-              type="text"
-              value={formData.schedularname}
-              onChange={handleInputChange}
-            />
-          </div>
-        </div>
-        <div className="md:flex md:items-center mb-6">
-          <div className="md:w-1/3">
-            <label
-              className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
               htmlFor="date"
             >
-              Start date and time
+              Schedule Date and time
             </label>
           </div>
           <div className="md:w-2/3 bg-slate-400 rounded-lg">
@@ -102,6 +79,7 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
               value={formData.date}
               name="date"
               id="date"
+              required
             />
           </div>
         </div>
@@ -110,26 +88,6 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
           <label className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0 pr-4">
             Message
           </label>
-        </div>
-
-        <div className="md:flex md:items-center mb-6">
-          <div className="md:w-1/3">
-            <label
-              className="block text-gray-500 font-semibold md:text-left mb-1 md:mb-0 pr-4"
-              htmlFor="frommail"
-            >
-              From
-            </label>
-          </div>
-          <div className="md:w-2/3">
-            <input
-              className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-              id="frommail"
-              name="frommail"
-              type="email"
-              onChange={handleInputChange}
-            />
-          </div>
         </div>
 
         <div className="md:flex md:items-center mb-6">
@@ -147,7 +105,9 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
               id="tomail"
               name="tomail"
               type="email"
+              value={formData.tomails[0]}
               onChange={handleInputChange}
+              required
             />
           </div>
         </div>
@@ -167,29 +127,24 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
               type="text"
               id="subject"
               name="subject"
+              value={formData.subject}
               onChange={handleInputChange}
             />
           </div>
         </div>
 
         <div className="md:flex md:items-center my-2">
-          <CKEditor
-            editor={ClassicEditor}
-            data="<p>Hello from CKEditor&nbsp;5!</p>"
-            onReady={(editor) => {
-              // You can store the "editor" and use when it is needed.
-              // console.log("Editor is ready to use!", editor);
-            }}
-            onChange={(event) => {
-              console.log(event);
-            }}
-            onBlur={(event, editor) => {
-              console.log("Blur.", editor);
-            }}
-            onFocus={(event, editor) => {
-              console.log("Focus.", editor);
-            }}
-          />
+          <div className="w-full" aria-colspan={2}>
+            <textarea
+              rows={10}
+              cols={10}
+              id="body"
+              name="body"
+              value={formData.body}
+              onChange={handleInputChange}
+              className="w-full p-2 border rounded-lg"
+            />
+          </div>
         </div>
 
         <div className="md:flex md:items-center">
@@ -205,6 +160,7 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
             <button
               className=" ml-1 shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
               type="button"
+              onClick={onClose}
             >
               Cancel
             </button>
