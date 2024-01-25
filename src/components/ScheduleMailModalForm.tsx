@@ -9,27 +9,20 @@ import "react-clock/dist/Clock.css";
 type propTypes = {
   open: boolean;
   onClose: () => void;
- 
 };
 
-
-const ScheduleMailModalForm: React.FC<propTypes> = ({
-  open,
-  onClose,
-
-}) => {
+const ScheduleMailModalForm: React.FC<propTypes> = ({ open, onClose }) => {
   type ValuePiece = Date | null;
 
   type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-const [isSubmitted, setIsSubmitted] =  useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const [formData, setFormData] = useState({
     tomails: [],
     date: "",
     subject: "",
     body: "",
-   
   });
 
   const handleSubmit = (e: { preventDefault: () => void }) => {
@@ -47,9 +40,8 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
   //   frommail: "",
   //   tomails: [],
   //   subject: ""});
-     
+
   //  };
- 
 
   const handleInputChange = (e: { target: any }) => {
     const { name, value } = e.target;
@@ -171,6 +163,4 @@ const [isSubmitted, setIsSubmitted] =  useState(false);
   );
 };
 
-
 export default ScheduleMailModalForm;
-

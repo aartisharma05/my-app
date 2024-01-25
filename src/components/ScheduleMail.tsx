@@ -3,7 +3,7 @@ import SchedularForm from "./SchedularForm";
 import ScheduleMailModalForm from "./ScheduleMailModalForm";
 
 const ScheduleMail = () => {
-    const [open, setOpen] = useState<boolean>(false);
+  const [open, setOpen] = useState<boolean>(false);
 
   return (
     <>
@@ -18,18 +18,13 @@ const ScheduleMail = () => {
           >
             Schedule Mail
           </button>
-          <SchedularForm
-            open={open}
-            onClose={() => setOpen(false)}
-          >
-            <ScheduleMailModalForm  open={open}
-            onClose={() => setOpen(false)}/>
+          <SchedularForm open={open} onClose={() => setOpen(false)}>
+            <ScheduleMailModalForm open={open} onClose={() => setOpen(false)} />
           </SchedularForm>
         </div>
       </div>
     </>
   );
 };
-
 
 export default ScheduleMail;

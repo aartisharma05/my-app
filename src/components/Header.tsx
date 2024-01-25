@@ -1,19 +1,15 @@
-import { useState } from 'react'
-import { Dialog, Popover } from '@headlessui/react'
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from '@heroicons/react/24/outline'
+import { useState } from "react";
+import { Dialog, Popover } from "@headlessui/react";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 
-import {Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 
 function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 export default function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="bg-white">

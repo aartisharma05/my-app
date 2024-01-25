@@ -3,23 +3,22 @@ import { Resend } from "resend";
 const resend = new Resend("re_123456789");
 
 const ResendMail = (async function () {
-   try {
-     const { data, error } = await resend.emails.send({
-       from: "Acme <onboarding@resend.dev>",
-       to: ["delivered@resend.dev"],
-       subject: "Hello World",
-       html: "<strong>It works!</strong>",
-     });
+  try {
+    const { data, error } = await resend.emails.send({
+      from: "Acme <onboarding@resend.dev>",
+      to: ["delivered@resend.dev"],
+      subject: "Hello World",
+      html: "<strong>It works!</strong>",
+    });
 
-     if (error) {
-       return console.error({ error });
-     }
+    if (error) {
+      return console.error({ error });
+    }
 
-     console.log({ data });
-   } catch (error) {
-     console.error("An error occurred:", error);
-   }
-}
-)();
- 
+    console.log({ data });
+  } catch (error) {
+    console.error("An error occurred:", error);
+  }
+})();
+
 export default ResendMail;

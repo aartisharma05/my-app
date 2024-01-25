@@ -24,7 +24,7 @@ const SchedularForm: React.FC<propTypes> = ({ open, onClose, children }) => {
         >
           X
         </button>
-      
+
         {children}
       </div>
     </div>
